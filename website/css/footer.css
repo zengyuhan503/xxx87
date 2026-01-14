@@ -52,15 +52,16 @@ footer .content{
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start;
         .item{
-            padding: 7px 0;
+            padding: 10px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             display: flex;
             .title{
                 margin-right: 70px;
                 font-size: 14px;
                 font-weight: 600;
+                line-height: 28px;
                 width: 70px;
                 color: #fff;
             }
@@ -72,6 +73,7 @@ footer .content{
                 color: #fff;
                 font-size: 14px;
                 margin-right: 20px;
+                line-height: 28px;
             }
             &:first-child{
                 padding-top: 0;

@@ -210,16 +210,32 @@
     height: 60px;
     /* Adjust as needed */
     color: #fff;
+    position: relative;
 }
 
 .jgdt-title {
     margin-right: 40px;
+    color: #fff;
+    width: 46px;
+    word-break: break-all;
+    line-height: 20px;
+    text-shadow:
+      -1px -1px 0 rgba(0,104,222,1),
+       1px -1px 0 rgba(0,104,222,1),
+      -1px  1px 0 rgba(0,104,222,1),
+       1px  1px 0 rgba(0,104,222,1);
 }
 
 .jgdt-title img {
-    height: 40px;
+   
     /* Adjust based on image */
     display: block;
+    position: absolute  ;
+    left: -0px;
+    top: -0px;
+    height: 60px;
+    opacity: 0.5;
+
 }
 
 .jgdt-nav {
@@ -403,7 +419,7 @@
 }
 
 .tzgg-item {
-    flex: 1;
+    width: 32%;
     background: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
@@ -443,14 +459,17 @@
     overflow: hidden;
 }
 
-.tzgg-item .info-list li {
+.tzgg-item .info-list  {
     padding: 4px 0;
     list-style: none;
 }
 
-.tzgg-item .info-list li a {
+.tzgg-item .info-list  a {
     display: block;
-    white-space: nowrap;
+    height: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #333;
@@ -465,6 +484,10 @@
 /* Items5 - ZTZL Section */
 .items5 {
     padding-bottom: 30px;
+
+    & .ztzl-section{
+        position: relative;
+    }
 }
 
 .ztzlSwiper {
@@ -480,20 +503,35 @@
 }
 
 /* Adjust navigation buttons for ZTZL Swiper */
-.ztzlSwiper .swiper-button-prev,
-.ztzlSwiper .swiper-button-next {
+.ztzl-section .swiper-button-prev,
+.ztzl-section .swiper-button-next {
     width: 30px;
     height: 45px;
     margin-top: -22px;
     /* Center vertically */
 }
-
-.ztzlSwiper .swiper-button-prev {
-    left: -2px;
+.swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled{
+    opacity: 0.6;
 }
 
-.ztzlSwiper .swiper-button-next {
-    right: -2px;
+.ztzl-section .swiper-button-prev {
+    left: -0px;
+    background-size: 100% 100%;
+    background-position: center;
+    top: 125px;
+    &::after{
+        display: none;
+    }
+}
+
+.ztzl-section .swiper-button-next {
+    right: -0px;
+    background-size: 100% 100%;
+    background-position: center;
+    top: 125px;
+    &::after{
+        display: none;
+    }
 }
 
 .items6 {
@@ -1385,13 +1423,14 @@
 }
 
 .service-header img {
-    height: 60px; /* Adjust based on actual image size */
+    width: 100%;
 }
 
 .service-grid {
     display: flex;
     align-items: stretch;
     gap: 20px;
+    margin-top: 30px;
 }
 
 /* Left part: Two Columns of News Lists */

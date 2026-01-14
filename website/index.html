@@ -34,26 +34,20 @@
         <div class="head_navs">
             <div class="navs container">
                 <ul>
+                     <@sysChannelInfo code="sy001" channelCode="XXX87bd">
+                    <#if sy001??>
+                        <#assign a1="${sy001.id!''}">
+                    </#if>
+                    </@sysChannelInfo>
+                     <@sysNavigationByRootId code="sysNavigation" channelId="${a1!''}">
+                     </@sysNavigationByRootId>
                     <li class="active">
                         <img src="./images/menu_sel.png" alt="">
-                        <a target="_blank" href="">强军动态</a>
+                        <a href="${itemUrl!''}" >
+                            <a target="_blank" href="">${navigation.name!''}</a>
+                        </a>
                     </li>
-                    <li>
-                        <img src="./images/menu_sel.png" alt="">
-                        <a target="_blank" href="">立德树人</a>
-                    </li>
-                    <li>
-                        <img src="./images/menu_sel.png" alt="">
-                        <a target="_blank" href="">为战育人</a>
-                    </li>
-                    <li>
-                        <img src="./images/menu_sel.png" alt="">
-                        <a target="_blank" href="">育鹰文化</a>
-                    </li>
-                    <li>
-                        <img src="./images/menu_sel.png" alt="">
-                        <a target="_blank" href="">为兵服务</a>
-                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -65,41 +59,47 @@
                 <img class="hf1" src="./images/hf1.png" alt="">
                 <!-- 头条内容 -->
                 <div class="toutiao" style="background-image: url('./images/tt_bg.png');">
+                    <@articleListBySysChannelId code="ttxwArticleList" channelCode="ttxw" pageNum="1" pageSize="4"     isSpecil="1">
+                    <#if ttxwArticleList??&&(ttxwArticleList?size>0)>
                     <p class="top">
-                        中共中央政治局召开会议 中共中央总书记习近平主持会议
+                        <#assign topArticle=ttxwArticleList[0]>
+                         <a href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}" target="_blank">
+                            ${topArticle.title!''}
+                        </a>
                     </p>
                     <div class="list">
-                        <p>今年前十个月规上电子信息制造业增加值同比增长... </p>
-                        <p>今年前十个月规上电子信息制造业增加值同比增长... </p>
-                        <p>今年前十个月规上电子信息制造业增加值同比增长... </p>
+                        <#list ttxwArticleList as ttxwArticle>
+                            <#if ttxwArticle_index gt 0>
+                             <p>
+                             <a href="${publishUrlPrefix!''}/${ttxwArticle.publishingPath!''}" target="_blank">${ttxwArticle.title!''}</a>
+                             </p>
+                            </#if>
+                        </#list>
                     </div>
+                    </#if>
+                    </@articleListBySysChannelId>
                 </div>
             </div>
         </div>
         <div class="items2">
             <div class="container">
                 <div class="news-section">
+                    <!-- 轮播图区域 -->
                     <!-- Swiper -->
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
+                            <@rotationChartChannelId code="rotationChartList" channelCode="bdyw" pageSize="5">
+                             <#if rotationChartList??&&(rotationChartList?size>0)>
+                            <#list rotationChartList as rotationChart>
                             <div class="swiper-slide">
-                                <a target="_blank" href="#">
-                                    <img src="./images/bg_1.png" alt="">
-                                    <div class="slide-title">新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题</div>
+                                <a target="_blank" href="${publishUrlPrefix!''}/${rotationChart.publishingPath!''}">
+                                     <img src="${rotationChart.picPath!''}" alt="${rotationChart.title!''}">
+                                    <div class="slide-title">${rotationChart.title!''}</div>
                                 </a>
                             </div>
-                            <div class="swiper-slide">
-                                <a target="_blank" href="#">
-                                    <img src="./images/bg_2.png" alt="">
-                                    <div class="slide-title">新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题</div>
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a target="_blank" href="#">
-                                    <img src="./images/bg_3.png" alt="">
-                                    <div class="slide-title">新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题</div>
-                                </a>
-                            </div>
+                            </#list>
+                            </#if>
+                            </@rotationChartChannelId>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
@@ -111,23 +111,33 @@
                         <div class="news-header">
                             <img src="./images/title_bdyw.png" alt="部队要闻">
                         </div>
+                        <@articleListBySysChannelId code="zddtArticleList" channelCode="bdyw" pageNum="1" pageSize="6">
+                        <#if zddtArticleList??&&(zddtArticleList?size>0)>
+
+                        
                         <div class="news-item-highlight">
-                            <a target="_blank" href="#" class="img-link">
-                                <img src="./images/img_szxx.png" alt="">
+                            <#assign topArticle=zddtArticleList[0]>
+                            <a target="_blank" href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}" class="img-link">
+                                <img src="${topArticle.picPath!''}" alt="${topArticle.title!''}">
                             </a>
                             <div class="info">
-                                <h3><a target="_blank" href="#">新闻标题新闻标题新闻标题</a></h3>
-                                <p><a target="_blank" href="#">正文正文正文正文正文正文正文正文正文正文...</a></p>
-                                <span>11-20</span>
+                                <h3><a target="_blank" href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}">${topArticle.title!''}</a></h3>
+                                <p><a target="_blank" href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}">${topArticle.content!''}</a></p>
+                                <span>${topArticle.releaseTime?string("dd")!''}-${topArticle.releaseTime?string("MM")!''}</span>
                             </div>
                         </div>
                         <ul class="news-text-list">
-                            <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                            <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                            <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                            <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                            <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
+                            <#list zddtArticleList as bdywArticle>
+                              <#if bdywArticle_index gt 0>
+                             <li>
+                                <a target="_blank" href="${publishUrlPrefix!''}/${bdywArticle.publishingPath!''}">${bdywArticle.title!''}</a>
+                                <span>${bdywArticle.releaseTime?string("dd")!''}-${bdywArticle.releaseTime?string("MM")!''}</span>
+                             </li>
+                            </#if>
+                        </#list>
                         </ul>
+                        </#if>
+                        </@articleListBySysChannelId>
                     </div>
                 </div>
             </div>
@@ -136,87 +146,74 @@
             <div class="container">
                 <div class="jgdt-section">
                     <!-- Header -->
-                    <div class="jgdt-header">
+                    <div class="jgdt-header" style="background-image: url('./images/jgdt_bg.png');background-repeat: no-repeat;">
                         <div class="jgdt-title">
-
+                            <img src="./images/maskgroup.png" alt="">
+                            基层动态
                         </div>
+                        <@sysChannelInfo code="jcdtInfo" channelCode="jcdt">
+                            <#if jcdtInfo??>
+                                <#assign jcdtId = jcdtInfo.id!''>
+                            </#if>
+                        </@sysChannelInfo>
                         <ul class="jgdt-nav">
-                            <li class="active">
-                                <span>XX分队</span>
-                                <img class="indicator" src="./images/jgdt_sel.png" alt="">
-                            </li>
-                            <li><span>XX分队</span></li>
-                            <li><span>XX分队</span></li>
-                            <li><span>XX分队</span></li>
-                            <li><span>XX分队</span></li>
-                            <li><span>XX分队</span></li>
-                            <li><span>XX分队</span></li>
+                            <@sysNavigationByRootId code="jcdtList" channelId="${jcdtId!''}">
+                                <#if jcdtList?? && (jcdtList?size > 0)>
+                                    <#list jcdtList as item>
+                                        <li <#if item_index == 0>class="active"</#if>>
+                                            <span>${item.name!''}</span>
+                                            <img class="indicator" src="./images/jgdt_sel.png" alt="">
+                                        </li>
+                                    </#list>
+                                </#if>
+                            </@sysNavigationByRootId>
                         </ul>
                     </div>
 
                     <!-- Content Grid -->
-                    <div class="jgdt-content">
-                        <!-- Item 1 -->
-                        <div class="jgdt-col">
-                            <div class="jgdt-card">
-                                <a target="_blank" href="#" class="card-link">
-                                    <div class="card-img">
-                                        <img src="./images/test.png" alt="">
-                                        <div class="date-badge">
-                                            <span class="day">20</span>
-                                            <span class="ym">2025-11</span>
-                                        </div>
-                                        <div class="card-title">新闻列表新闻列表新闻列表新闻列表新闻列表...</div>
+                    <@sysChannelInfo code="jcdtInfoContent" channelCode="jcdt">
+                        <@sysNavigationByRootId code="jcdtListContent" channelId="${jcdtInfoContent.id!''}">
+                            <#if jcdtListContent?? && (jcdtListContent?size > 0)>
+                                <#list jcdtListContent as item>
+                                    <div class="jgdt-content" style="display: <#if item_index == 0>flex<#else>none</#if>;">
+                                        <@articleListBySysChannelId code="articles" channelId="${item.id}" pageSize="12">
+                                            <#if articles?? && (articles?size > 0)>
+                                                <#list 0..2 as colIndex>
+                                                    <div class="jgdt-col">
+                                                        <div class="jgdt-card">
+                                                            <#assign mainIndex = colIndex * 4>
+                                                            <#if (articles?size > mainIndex)>
+                                                                <#assign mainArticle = articles[mainIndex]>
+                                                                <a target="_blank" href="${publishUrlPrefix!''}/${mainArticle.publishingPath!''}" class="card-link">
+                                                                    <div class="card-img">
+                                                                        <img src="${publishUrlPrefix!''}/${mainArticle.titleImg!''}" alt="${mainArticle.title!''}">
+                                                                        <div class="date-badge">
+                                                                            <span class="day">${mainArticle.releaseTime?string("dd")}</span>
+                                                                            <span class="ym">${mainArticle.releaseTime?string("yyyy-MM")}</span>
+                                                                        </div>
+                                                                        <div class="card-title">${mainArticle.title!''}</div>
+                                                                    </div>
+                                                                </a>
+                                                            </#if>
+                                                            <ul class="card-list">
+                                                                <#list 1..3 as subOffset>
+                                                                    <#assign subIndex = mainIndex + subOffset>
+                                                                    <#if (articles?size > subIndex)>
+                                                                        <#assign subArticle = articles[subIndex]>
+                                                                        <li><a target="_blank" href="${publishUrlPrefix!''}/${subArticle.publishingPath!''}">${subArticle.title!''}</a></li>
+                                                                    </#if>
+                                                                </#list>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </#list>
+                                            </#if>
+                                        </@articleListBySysChannelId>
                                     </div>
-                                </a>
-                                <ul class="card-list">
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Item 2 -->
-                        <div class="jgdt-col">
-                            <div class="jgdt-card">
-                                <a target="_blank" href="#" class="card-link">
-                                    <div class="card-img">
-                                        <img src="./images/test.png" alt="">
-                                        <div class="date-badge">
-                                            <span class="day">20</span>
-                                            <span class="ym">2025-11</span>
-                                        </div>
-                                        <div class="card-title">新闻列表新闻列表新闻列表新闻列表新闻列表...</div>
-                                    </div>
-                                </a>
-                                <ul class="card-list">
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Item 3 -->
-                        <div class="jgdt-col">
-                            <div class="jgdt-card">
-                                <a target="_blank" href="#" class="card-link">
-                                    <div class="card-img">
-                                        <img src="./images/test.png" alt="">
-                                        <div class="date-badge">
-                                            <span class="day">20</span>
-                                            <span class="ym">2025-11</span>
-                                        </div>
-                                        <div class="card-title">新闻列表新闻列表新闻列表新闻列表新闻列表...</div>
-                                    </div>
-                                </a>
-                                <ul class="card-list">
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                                </#list>
+                            </#if>
+                        </@sysNavigationByRootId>
+                    </@sysChannelInfo>
                 </div>
             </div>
         </div>
@@ -229,42 +226,22 @@
 
                     </div>
                     <div class="tzgg-list">
-                        <!-- Item 1 -->
-                        <div class="tzgg-item">
-                            <div class="top-line"></div>
-                            <div class="date-box">
-                                <span class="day">20</span>
-                                <span class="ym">2025-11</span>
-                            </div>
-                            <ul class="info-list">
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a></li>
-                            </ul>
-                        </div>
-                        <!-- Item 2 -->
-                        <div class="tzgg-item">
-                            <div class="top-line"></div>
-                            <div class="date-box">
-                                <span class="day">20</span>
-                                <span class="ym">2025-11</span>
-                            </div>
-                            <ul class="info-list">
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a></li>
-                            </ul>
-                        </div>
-                        <!-- Item 3 -->
-                        <div class="tzgg-item">
-                            <div class="top-line"></div>
-                            <div class="date-box">
-                                <span class="day">20</span>
-                                <span class="ym">2025-11</span>
-                            </div>
-                            <ul class="info-list">
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a></li>
-                            </ul>
-                        </div>
+                        <@articleListBySysChannelId code="tzggArticles" channelCode="tzgg" pageSize="3">
+                            <#if tzggArticles?? && (tzggArticles?size > 0)>
+                                <#list tzggArticles as article>
+                                    <div class="tzgg-item">
+                                        <div class="top-line"></div>
+                                        <div class="date-box">
+                                            <span class="day">${article.releaseTime?string("dd")}</span>
+                                            <span class="ym">${article.releaseTime?string("yyyy-MM")}</span>
+                                        </div>
+                                        <div class="info-list">
+                                            <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">${article.title!''}</a>
+                                        </div>
+                                    </div>
+                                </#list>
+                            </#if>
+                        </@articleListBySysChannelId>
                     </div>
                 </div>
             </div>
@@ -280,36 +257,17 @@
                     <!-- Swiper -->
                     <div class="swiper ztzlSwiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <a target="_blank" href="#">
-                                    <img src="./images/test2.png" style="width: 100%;" alt="">
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a target="_blank" href="#">
-                                    <img src="./images/test2.png" alt="">
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a target="_blank" href="#">
-                                    <img src="./images/test2.png" alt="">
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a target="_blank" href="#">
-                                    <img src="./images/test2.png" alt="">
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a target="_blank" href="#">
-                                    <img src="./images/test2.png" alt="">
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a target="_blank" href="#">
-                                    <img src="./images/test2.png" alt="">
-                                </a>
-                            </div>
+                            <@articleListBySysChannelId code="ztzlArticles" channelCode="ztzl" pageSize="10">
+                                <#if ztzlArticles?? && (ztzlArticles?size > 0)>
+                                    <#list ztzlArticles as article>
+                                        <div class="swiper-slide">
+                                            <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">
+                                                <img src="${publishUrlPrefix!''}/${article.titleImg!''}" style="width: 100%;" alt="${article.title!''}">
+                                            </a>
+                                        </div>
+                                    </#list>
+                                </#if>
+                            </@articleListBySysChannelId>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
@@ -333,20 +291,31 @@
 
                         </div>
                         <div class="news-list-box">
-                            <div class="news-item-highlight">
-                                <a target="_blank" href="#" class="img-link">
-                                    <img src="./images/test.png" alt="">
-                                </a>
-                                <div class="info">
-                                    <h3><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表...</a></h3>
-                                </div>
-                            </div>
-                            <ul class="news-text-list">
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                            </ul>
+                            <@articleListBySysChannelId code="ldsrArticles" channelCode="ldsr" pageSize="5">
+                                <#if ldsrArticles?? && (ldsrArticles?size > 0)>
+                                    <!-- First item highlighted -->
+                                    <#assign firstArticle = ldsrArticles[0]>
+                                    <div class="news-item-highlight">
+                                        <a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}" class="img-link">
+                                            <img src="${publishUrlPrefix!''}/${firstArticle.titleImg!''}" alt="${firstArticle.title!''}">
+                                        </a>
+                                        <div class="info">
+                                            <h3><a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}">${firstArticle.title!''}</a></h3>
+                                        </div>
+                                    </div>
+                                    <!-- Remaining items list -->
+                                    <ul class="news-text-list">
+                                        <#list ldsrArticles as article>
+                                            <#if article_index gt 0>
+                                                <li>
+                                                    <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">${article.title!''}</a>
+                                                    <span>${article.releaseTime?string("MM-dd")}</span>
+                                                </li>
+                                            </#if>
+                                        </#list>
+                                    </ul>
+                                </#if>
+                            </@articleListBySysChannelId>
                         </div>
                     </div>
 
@@ -358,20 +327,31 @@
 
                         </div>
                         <div class="news-list-box">
-                            <div class="news-item-highlight">
-                                <a target="_blank" href="#" class="img-link">
-                                    <img src="./images/test.png" alt="">
-                                </a>
-                                <div class="info">
-                                    <h3><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表...</a></h3>
-                                </div>
-                            </div>
-                            <ul class="news-text-list">
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                            </ul>
+                            <@articleListBySysChannelId code="ldsrArticles" channelCode="ldsr" pageSize="5">
+                                <#if ldsrArticles?? && (ldsrArticles?size > 0)>
+                                    <!-- First item highlighted -->
+                                    <#assign firstArticle = ldsrArticles[0]>
+                                    <div class="news-item-highlight">
+                                        <a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}" class="img-link">
+                                            <img src="${publishUrlPrefix!''}/${firstArticle.titleImg!''}" alt="${firstArticle.title!''}">
+                                        </a>
+                                        <div class="info">
+                                            <h3><a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}">${firstArticle.title!''}</a></h3>
+                                        </div>
+                                    </div>
+                                    <!-- Remaining items list -->
+                                    <ul class="news-text-list">
+                                        <#list ldsrArticles as article>
+                                            <#if article_index gt 0>
+                                                <li>
+                                                    <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">${article.title!''}</a>
+                                                    <span>${article.releaseTime?string("MM-dd")}</span>
+                                                </li>
+                                            </#if>
+                                        </#list>
+                                    </ul>
+                                </#if>
+                            </@articleListBySysChannelId>
                         </div>
                     </div>
 
@@ -383,20 +363,31 @@
 
                         </div>
                         <div class="news-list-box">
-                            <div class="news-item-highlight">
-                                <a target="_blank" href="#" class="img-link">
-                                    <img src="./images/bg_1.png" alt="">
-                                </a>
-                                <div class="info">
-                                    <h3><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表...</a></h3>
-                                </div>
-                            </div>
-                            <ul class="news-text-list">
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                                <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                            </ul>
+                            <@articleListBySysChannelId code="ldsrArticles" channelCode="ldsr" pageSize="5">
+                                <#if ldsrArticles?? && (ldsrArticles?size > 0)>
+                                    <!-- First item highlighted -->
+                                    <#assign firstArticle = ldsrArticles[0]>
+                                    <div class="news-item-highlight">
+                                        <a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}" class="img-link">
+                                            <img src="${publishUrlPrefix!''}/${firstArticle.titleImg!''}" alt="${firstArticle.title!''}">
+                                        </a>
+                                        <div class="info">
+                                            <h3><a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}">${firstArticle.title!''}</a></h3>
+                                        </div>
+                                    </div>
+                                    <!-- Remaining items list -->
+                                    <ul class="news-text-list">
+                                        <#list ldsrArticles as article>
+                                            <#if article_index gt 0>
+                                                <li>
+                                                    <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">${article.title!''}</a>
+                                                    <span>${article.releaseTime?string("MM-dd")}</span>
+                                                </li>
+                                            </#if>
+                                        </#list>
+                                    </ul>
+                                </#if>
+                            </@articleListBySysChannelId>
                         </div>
                     </div>
                 </div>
@@ -415,27 +406,21 @@
 
                             </div>
                             <div class="mkwk-list">
-                                <div class="mkwk-item">
-                                    <a target="_blank" href="#" class="img-link">
-                                        <img src="./images/test2.png" alt="">
-                                        <div class="video-icon"></div>
-                                        <p class="title">新闻列表新闻列表新闻列表...</p>
-                                    </a>
-                                </div>
-                                <div class="mkwk-item">
-                                    <a target="_blank" href="#" class="img-link">
-                                        <img src="./images/test2.png" alt="">
-                                        <div class="video-icon"></div>
-                                        <p class="title">新闻列表新闻列表新闻列表...</p>
-                                    </a>
-                                </div>
-                                <div class="mkwk-item">
-                                    <a target="_blank" href="#" class="img-link">
-                                        <img src="./images/test2.png" alt="">
-                                        <div class="video-icon"></div>
-                                        <p class="title">新闻列表新闻列表新闻列表...</p>
-                                    </a>
-                                </div>
+                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="zw002" pageSize="3">
+                                    <#if advertList?? && (advertList?size > 0)>
+                                        <#list advertList as advert>
+                                            <div class="mkwk-item">
+                                                <a target="_blank" href="${advert.linkUrl!''}" class="img-link">
+                                                    <#if advert.advertPic??>
+                                                        <img src="${advert.advertPic.publishingPath!''}" alt="${advert.name!''}">
+                                                    </#if>
+                                                    <div class="video-icon"></div>
+                                                    <p class="title">${advert.name!''}</p>
+                                                </a>
+                                            </div>
+                                        </#list>
+                                    </#if>
+                                </@advertListByType>
                             </div>
                         </div>
                         <!-- Right: Jiaoxue Pingjia (1 item) -->
@@ -446,9 +431,17 @@
 
                             </div>
                             <div class="jxpj-content">
-                                <a target="_blank" href="#" class="img-link">
-                                    <img src="./images/link_jxpj.png" alt="教学评价">
-                                </a>
+                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="003" pageSize="1">
+                                    <#if advertList?? && (advertList?size > 0)>
+                                        <#list advertList as advert>
+                                            <a target="_blank" href="${advert.linkUrl!''}" class="img-link">
+                                                <#if advert.advertPic??>
+                                                    <img src="${advert.advertPic.publishingPath!''}" alt="${advert.name!''}">
+                                                </#if>
+                                            </a>
+                                        </#list>
+                                    </#if>
+                                </@advertListByType>
                             </div>
                         </div>
                     </div>
@@ -463,46 +456,34 @@
 
                             </div>
                             <div class="yxja-list">
-                                <ul>
-                                    <li>
-                                        <a target="_blank" href="#">
-                                            <img src="./images/icon_ja.png" alt="">
-                                            <span>新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表...</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" href="#">
-                                            <img src="./images/icon_ja.png" alt="">
-                                            <span>新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表...</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" href="#">
-                                            <img src="./images/icon_ja.png" alt="">
-                                            <span>新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表...</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <a target="_blank" href="#">
-                                            <img src="./images/icon_ja.png" alt="">
-                                            <span>新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表...</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" href="#">
-                                            <img src="./images/icon_ja.png" alt="">
-                                            <span>新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表...</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" href="#">
-                                            <img src="./images/icon_ja.png" alt="">
-                                            <span>新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表...</span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                <@articleListBySysChannelId code="yxjaArticles" channelCode="yxja" pageSize="6">
+                                    <#if yxjaArticles?? && (yxjaArticles?size > 0)>
+                                        <ul>
+                                            <#list yxjaArticles as article>
+                                                <#if article_index lt 3>
+                                                    <li>
+                                                        <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">
+                                                            <img src="./images/icon_ja.png" alt="">
+                                                            <span>${article.title!''}</span>
+                                                        </a>
+                                                    </li>
+                                                </#if>
+                                            </#list>
+                                        </ul>
+                                        <ul>
+                                            <#list yxjaArticles as article>
+                                                <#if article_index gt 2>
+                                                    <li>
+                                                        <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">
+                                                            <img src="./images/icon_ja.png" alt="">
+                                                            <span>${article.title!''}</span>
+                                                        </a>
+                                                    </li>
+                                                </#if>
+                                            </#list>
+                                        </ul>
+                                    </#if>
+                                </@articleListBySysChannelId>
                             </div>
                         </div>
                         <!-- Right: Zhengce Fagui -->
@@ -513,19 +494,32 @@
 
                             </div>
                             <div class="zcfg-content">
-                                <div class="news-card-vertical">
-                                    <a target="_blank" href="#" class="img-link">
-                                        <img src="./images/bg_1.png" alt="">
-                                    </a>
-                                    <div class="info">
-                                        <h3><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表...</a></h3>
-                                        <p><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表新闻列表...</a></p>
-                                    </div>
-                                </div>
-                                <ul class="news-text-list">
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻列表...</a><span>11-20</span></li>
-                                </ul>
+                                <@articleListBySysChannelId code="zcfgArticles" channelCode="zcfg" pageSize="3">
+                                    <#if zcfgArticles?? && (zcfgArticles?size > 0)>
+                                        <!-- First item with image -->
+                                        <#assign firstArticle = zcfgArticles[0]>
+                                        <div class="news-card-vertical">
+                                            <a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}" class="img-link">
+                                                <img src="${publishUrlPrefix!''}/${firstArticle.titleImg!''}" alt="${firstArticle.title!''}">
+                                            </a>
+                                            <div class="info">
+                                                <h3><a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}">${firstArticle.title!''}</a></h3>
+                                                <p><a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}">${firstArticle.description!firstArticle.title!''}</a></p>
+                                            </div>
+                                        </div>
+                                        <!-- Remaining items list -->
+                                        <ul class="news-text-list">
+                                            <#list zcfgArticles as article>
+                                                <#if article_index gt 0>
+                                                    <li>
+                                                        <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">${article.title!''}</a>
+                                                        <span>${article.releaseTime?string("MM-dd")}</span>
+                                                    </li>
+                                                </#if>
+                                            </#list>
+                                        </ul>
+                                    </#if>
+                                </@articleListBySysChannelId>
                             </div>
                         </div>
                     </div>
@@ -544,49 +538,20 @@
                         <!-- Swiper -->
                         <div class="swiper yywhSwiper">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <a target="_blank" href="#" class="card-link">
-                                        <div class="card-img">
-                                            <!-- <img src="./images/img_szxx.png" alt=""> -->
-                                        </div>
-                                        <div class="card-title">新闻列表新闻列表</div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a target="_blank" href="#" class="card-link">
-                                        <div class="card-img">
-                                        </div>
-                                        <div class="card-title">新闻列表新闻列表</div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a target="_blank" href="#" class="card-link">
-                                        <div class="card-img">
-                                        </div>
-                                        <div class="card-title">新闻列表新闻列表新闻列表新闻列表</div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a target="_blank" href="#" class="card-link">
-                                        <div class="card-img">
-                                        </div>
-                                        <div class="card-title">新闻列表新闻列表</div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a target="_blank" href="#" class="card-link">
-                                        <div class="card-img">
-                                        </div>
-                                        <div class="card-title">新闻列表新闻列表</div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a target="_blank" href="#" class="card-link">
-                                        <div class="card-img">
-                                        </div>
-                                        <div class="card-title">新闻列表新闻列表</div>
-                                    </a>
-                                </div>
+                                <@articleListBySysChannelId code="yywhArticles" channelCode="yywh" pageSize="10">
+                                    <#if yywhArticles?? && (yywhArticles?size > 0)>
+                                        <#list yywhArticles as article>
+                                            <div class="swiper-slide">
+                                                <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}" class="card-link">
+                                                    <div class="card-img">
+                                                        <img src="${publishUrlPrefix!''}/${article.titleImg!''}" alt="${article.title!''}">
+                                                    </div>
+                                                    <div class="card-title">${article.title!''}</div>
+                                                </a>
+                                            </div>
+                                        </#list>
+                                    </#if>
+                                </@articleListBySysChannelId>
                             </div>
                         </div>
                         <div class="yywhSwiper-swiper-button-next"></div>
@@ -606,9 +571,17 @@
                             </div>
                         </div>
                         <div class="col-content" style="padding: 0;">
-                            <a target="_blank" href="#" class="library-card">
-                                <img src="./images/test4.png" alt="数字图书馆">
-                            </a>
+                            <@advertListByType code="advertList" siteId="${siteId!''}" link_id="004" pageSize="1">
+                                <#if advertList?? && (advertList?size > 0)>
+                                    <#list advertList as advert>
+                                        <a target="_blank" href="${advert.linkUrl!''}" class="library-card">
+                                            <#if advert.advertPic??>
+                                                <img src="${advert.advertPic.publishingPath!''}" alt="${advert.name!''}">
+                                            </#if>
+                                        </a>
+                                    </#list>
+                                </#if>
+                            </@advertListByType>
                         </div>
                     </div>
 
@@ -617,54 +590,25 @@
                         <div class="col-header">
                             <div class="header-left">
                                 <img src="./images/title_rjck.png" alt="软件仓库">
-                                
                             </div>
                         </div>
                         <div class="col-content">
                             <div class="software-grid">
-                                <!-- 6 Items -->
-                                <a target="_blank" href="#" class="software-item">
-                                    <img src="./images/test3.png" alt="">
-                                    <div class="info">
-                                        <h4>中国军号</h4>
-                                        <p>简介简介...</p>
-                                    </div>
-                                </a>
-                                <a target="_blank" href="#" class="software-item">
-                                    <img src="./images/test3.png" alt="">
-                                    <div class="info">
-                                        <h4>中国军号</h4>
-                                        <p>简介简介...</p>
-                                    </div>
-                                </a>
-                                <a target="_blank" href="#" class="software-item">
-                                    <img src="./images/test3.png" alt="">
-                                    <div class="info">
-                                        <h4>中国军号</h4>
-                                        <p>简介简介...</p>
-                                    </div>
-                                </a>
-                                <a target="_blank" href="#" class="software-item">
-                                    <img src="./images/test3.png" alt="">
-                                    <div class="info">
-                                        <h4>中国军号</h4>
-                                        <p>简介简介...</p>
-                                    </div>
-                                </a>
-                                <a target="_blank" href="#" class="software-item">
-                                    <img src="./images/test3.png" alt="">
-                                    <div class="info">
-                                        <h4>中国军号</h4>
-                                        <p>简介简介...</p>
-                                    </div>
-                                </a>
-                                <a target="_blank" href="#" class="software-item">
-                                    <img src="./images/test3.png" alt="">
-                                    <div class="info">
-                                        <h4>中国军号</h4>
-                                        <p>简介简介...</p>
-                                    </div>
-                                </a>
+                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="005" pageSize="6">
+                                    <#if advertList?? && (advertList?size > 0)>
+                                        <#list advertList as advert>
+                                            <a target="_blank" href="${advert.linkUrl!''}" class="software-item">
+                                                <#if advert.advertPic??>
+                                                    <img src="${advert.advertPic.publishingPath!''}" alt="${advert.name!''}">
+                                                </#if>
+                                                <div class="info">
+                                                    <h4>${advert.name!''}</h4>
+                                                    <p>${advert.description!advert.name!''}</p>
+                                                </div>
+                                            </a>
+                                        </#list>
+                                    </#if>
+                                </@advertListByType>
                             </div>
                         </div>
                     </div>
@@ -674,28 +618,37 @@
                         <div class="col-header">
                             <div class="header-left">
                                 <img src="./images/title_qjyy.png" alt="强军音乐">
-                                
                             </div>
                         </div>
                         <div class="col-content">
                             <div class="media-card">
-                                <div class="media-top">
-                                    <div class="media-img">
-                                        <!-- Using test.png as placeholder since not specified -->
-                                         <img src="./images/test6.png" alt="" class="musicback">
-                                        <img src="./images/test.png" class="cover" alt="Music">
-                                    </div>
-                                    <div class="media-info">
-                                        <h4>好歌榜</h4>
-                                        <p>文字：文字介绍</p>
-                                        <div class="play-btn">▶</div>
-                                    </div>
-                                </div>
+                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="006" pageSize="1">
+                                    <#if advertList?? && (advertList?size > 0)>
+                                        <#list advertList as advert>
+                                            <div class="media-top">
+                                                <div class="media-img">
+                                                    <img src="./images/test6.png" alt="" class="musicback">
+                                                    <#if advert.advertPic??>
+                                                        <img src="${advert.advertPic.publishingPath!''}" class="cover" alt="${advert.name!''}">
+                                                    </#if>
+                                                </div>
+                                                <div class="media-info">
+                                                    <h4>${advert.name!''}</h4>
+                                                    <p>${advert.description!advert.name!''}</p>
+                                                    <div class="play-btn">▶</div>
+                                                </div>
+                                            </div>
+                                        </#list>
+                                    </#if>
+                                </@advertListByType>
                                 <ul class="media-list">
-                                    <li><span class="num">1</span> <a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a></li>
-                                    <li><span class="num">2</span> <a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a></li>
-                                    <li><span class="num">3</span> <a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a></li>
-                                    <li><span class="num">4</span> <a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a></li>
+                                    <@articleListBySysChannelId code="qjyyArticles" channelCode="qjyy" pageSize="4">
+                                        <#if qjyyArticles?? && (qjyyArticles?size > 0)>
+                                            <#list qjyyArticles as article>
+                                                <li><span class="num">${article_index + 1}</span> <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">${article.title!''}</a></li>
+                                            </#list>
+                                        </#if>
+                                    </@articleListBySysChannelId>
                                 </ul>
                             </div>
                         </div>
@@ -713,18 +666,28 @@
                     </div>
                     <div class="movie-content">
                         <div class="movie-banner">
-                            <a target="_blank" href="#" class="movie-main-link">
-                                <img src="./images/dianyingtupian.png" alt="志愿军：雄兵出击">
-                            </a>
-                            <div class="movie-overlay">正在热播</div>
-                            
-                            <!-- Right side overlay list -->
-                            <div class="movie-list-overlay">
-                                <div class="movie-list-item" data-img="./images/dianyingtupian.png" data-link="#" data-title="电影名称名称名称">《电影名称名称名称》</div>
-                                <div class="movie-list-item active" data-img="./images/dianyingtupian.png" data-link="#" data-title="电影名称">《电影名称》</div>
-                                <div class="movie-list-item" data-img="./images/dianyingtupian.png" data-link="#" data-title="电影名称名称名称">《电影名称名称名称》</div>
-                                <div class="movie-list-item" data-img="./images/dianyingtupian.png" data-link="#" data-title="电影名称名称名称">《电影名称名称名称》</div>
-                            </div>
+                            <@articleListBySysChannelId code="qjysArticles" channelCode="qjys" pageSize="4">
+                                <#if qjysArticles?? && (qjysArticles?size > 0)>
+                                    <!-- Main Display (Default to first item) -->
+                                    <#assign firstArticle = qjysArticles[0]>
+                                    <a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}" class="movie-main-link">
+                                        <img src="${publishUrlPrefix!''}/${firstArticle.titleImg!''}" alt="${firstArticle.title!''}">
+                                    </a>
+                                    <div class="movie-overlay">正在热播</div>
+                                    
+                                    <!-- Right side overlay list -->
+                                    <div class="movie-list-overlay">
+                                        <#list qjysArticles as article>
+                                            <div class="movie-list-item <#if article_index == 0>active</#if>" 
+                                                 data-img="${publishUrlPrefix!''}/${article.titleImg!''}" 
+                                                 data-link="${publishUrlPrefix!''}/${article.publishingPath!''}" 
+                                                 data-title="${article.title!''}">
+                                                《${article.title!''}》
+                                            </div>
+                                        </#list>
+                                    </div>
+                                </#if>
+                            </@articleListBySysChannelId>
                         </div>
                     </div>
                 </div>
@@ -747,20 +710,27 @@
                                 </div>
                             </div>
                             <div class="service-news-content">
-                                <div class="service-featured-news">
-                                    <img src="./images/test2.png" alt="">
-                                    <div class="news-info">
-                                        <h4>新闻列表新闻列表新闻列表...</h4>
-                                        <p>新闻列表新闻列表新闻列表...</p>
-                                    </div>
-                                </div>
-                                <ul class="service-news-list">
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a><span class="date">11-20</span></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a><span class="date">11-20</span></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a><span class="date">11-20</span></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a><span class="date">11-20</span></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a><span class="date">11-20</span></li>
-                                </ul>
+                                <@articleListBySysChannelId code="jyxcArticles" channelCode="jyxc" pageSize="6">
+                                    <#if jyxcArticles?? && (jyxcArticles?size > 0)>
+                                        <!-- Featured Article (First Item) -->
+                                        <#assign firstArticle = jyxcArticles[0]>
+                                        <div class="service-featured-news">
+                                            <img src="${publishUrlPrefix!''}/${firstArticle.titleImg!''}" alt="${firstArticle.title!''}">
+                                            <div class="news-info">
+                                                <h4>${firstArticle.title!''}</h4>
+                                                <p>${firstArticle.description!firstArticle.title!''}</p>
+                                            </div>
+                                        </div>
+                                        <!-- Remaining Articles List -->
+                                        <ul class="service-news-list">
+                                            <#list jyxcArticles as article>
+                                                <#if article_index gt 0>
+                                                    <li><a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">${article.title!''}</a><span class="date">${article.releaseTime?string("MM-dd")}</span></li>
+                                                </#if>
+                                            </#list>
+                                        </ul>
+                                    </#if>
+                                </@articleListBySysChannelId>
                             </div>
                         </div>
                         
@@ -773,34 +743,57 @@
                                 </div>
                             </div>
                             <div class="service-news-content">
-                                <div class="service-featured-news">
-                                    <img src="./images/test2.png" alt="">
-                                    <div class="news-info">
-                                        <h4>新闻列表新闻列表新闻列表...</h4>
-                                        <p>新闻列表新闻列表新闻列表...</p>
-                                    </div>
-                                </div>
-                                <ul class="service-news-list">
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a><span class="date">11-20</span></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a><span class="date">11-20</span></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a><span class="date">11-20</span></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a><span class="date">11-20</span></li>
-                                    <li><a target="_blank" href="#">新闻列表新闻列表新闻列表新闻...</a><span class="date">11-20</span></li>
-                                </ul>
+                                <@articleListBySysChannelId code="wqzxArticles" channelCode="wqzx" pageSize="6">
+                                    <#if wqzxArticles?? && (wqzxArticles?size > 0)>
+                                        <!-- Featured Article (First Item) -->
+                                        <#assign firstArticle = wqzxArticles[0]>
+                                        <div class="service-featured-news">
+                                            <img src="${publishUrlPrefix!''}/${firstArticle.titleImg!''}" alt="${firstArticle.title!''}">
+                                            <div class="news-info">
+                                                <h4>${firstArticle.title!''}</h4>
+                                                <p>${firstArticle.description!firstArticle.title!''}</p>
+                                            </div>
+                                        </div>
+                                        <!-- Remaining Articles List -->
+                                        <ul class="service-news-list">
+                                            <#list wqzxArticles as article>
+                                                <#if article_index gt 0>
+                                                    <li><a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">${article.title!''}</a><span class="date">${article.releaseTime?string("MM-dd")}</span></li>
+                                                </#if>
+                                            </#list>
+                                        </ul>
+                                    </#if>
+                                </@articleListBySysChannelId>
                             </div>
                         </div>
                     </div>
 
                     <!-- Right: Mailboxes -->
                     <div class="service-mailbox-container">
-                        <a target="_blank" href="#" class="mailbox-szxx">
-                            <img src="./images/img_szxx.png" alt="首长信箱">
-                            <p>首长信箱</p>
-                        </a>
-                        <a target="_blank" href="#" class="mailbox-szxx">
-                            <img src="./images/img_jjxx.png" alt="纪检信箱">
-                            <p>纪检信箱</p>
-                        </a>
+                        <@advertListByType code="advertList" siteId="${siteId!''}" link_id="007" pageSize="1">
+                            <#if advertList?? && (advertList?size > 0)>
+                                <#list advertList as advert>
+                                    <a target="_blank" href="${advert.linkUrl!''}" class="mailbox-szxx">
+                                        <#if advert.advertPic??>
+                                            <img src="./images/img_szxx.png" alt="${advert.name!''}">
+                                        </#if>
+                                        <p>${advert.name!''}</p>
+                                    </a>
+                                </#list>
+                            </#if>
+                        </@advertListByType>
+                        <@advertListByType code="advertList" siteId="${siteId!''}" link_id="008" pageSize="1">
+                            <#if advertList?? && (advertList?size > 0)>
+                                <#list advertList as advert>
+                                    <a target="_blank" href="${advert.linkUrl!''}" class="mailbox-szxx">
+                                        <#if advert.advertPic??>
+                                            <img src="./images/img_jjxx.png" alt="${advert.name!''}">
+                                        </#if>
+                                        <p>${advert.name!''}</p>
+                                    </a>
+                                </#list>
+                            </#if>
+                        </@advertListByType>
                     </div>
                 </div>
             </div>
@@ -814,30 +807,21 @@
                 </div>
 
                 <div class="survey-list">
-                    <!-- Survey Item 1 -->
-                    <div class="survey-item">
-                        <div class="tag"></div>
-                        <div class="survey-info">
-                            <span class="survey-status">进行中</span>
-                            新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表表新闻列表新闻列表新闻列表新闻列表新闻列表
-                        </div>
-                    </div>
-                    <!-- Survey Item 2 -->
-                    <div class="survey-item">
-                        <div class="tag"></div>
-                        <div class="survey-info">
-                            <span class="survey-status">进行中</span>
-                            新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表表新闻列表新闻列表新闻列表新闻列表新闻列表
-                        </div>
-                    </div>
-                    <!-- Survey Item 3 -->
-                    <div class="survey-item">
-                        <div class="tag"></div>
-                       <div class="survey-info">
-                            <span class="survey-status">进行中</span>
-                            新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表表新闻列表新闻列表新闻列表新闻列表新闻列表
-                        </div>
-                    </div>
+                    <@articleListBySysChannelId code="wjdcArticles" channelCode="wjdc" pageSize="3">
+                        <#if wjdcArticles?? && (wjdcArticles?size > 0)>
+                            <#list wjdcArticles as article>
+                                <div class="survey-item">
+                                    <div class="tag"></div>
+                                    <div class="survey-info">
+                                        <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}" style="text-decoration: none; color: inherit;">
+                                            <span class="survey-status">进行中</span>
+                                            ${article.title!''}
+                                        </a>
+                                    </div>
+                                </div>
+                            </#list>
+                        </#if>
+                    </@articleListBySysChannelId>
                 </div>
 
                 <!-- Service Hall Banner -->
@@ -869,70 +853,58 @@
                 <div class="right">
                     <div class="item">
                         <div class="title">
-                            一级标题
+                            ${site.name!''}
                         </div>
                         <div class="links">
-                            <a target="_blank" href="">链接名称</a>
-                            <a target="_blank" href="">链接名链接名称称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
+                            <@advertListByType code="advertList" siteId="${siteId!''}" link_id="010" pageSize="6">
+                                <#if advertList?? && (advertList?size > 0)>
+                                    <#list advertList as advert>
+                                        <a target="_blank" href="${advert.linkUrl!''}">${advert.name!''}</a>
+                                    </#list>
+                                </#if>
+                            </@advertListByType>
                         </div>
                     </div>
                     <div class="item">
                         <div class="title">
-                            一级标题
+                            ${site.name!''}
                         </div>
                         <div class="links">
-                            <a target="_blank" href="">链接名称</a>
-                            <a target="_blank" href="">链接名链接名称称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
+                            <@advertListByType code="advertList" siteId="${siteId!''}" link_id="011" pageSize="6">
+                                <#if advertList?? && (advertList?size > 0)>
+                                    <#list advertList as advert>
+                                        <a target="_blank" href="${advert.linkUrl!''}">${advert.name!''}</a>
+                                    </#list>
+                                </#if>
+                            </@advertListByType>
                         </div>
                     </div>
                     <div class="item">
                         <div class="title">
-                            一级标题
+                            ${site.name!''}
                         </div>
                         <div class="links">
-                            <a target="_blank" href="">链接名称</a>
-                            <a target="_blank" href="">链接名链接名称称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
+                            <@advertListByType code="advertList" siteId="${siteId!''}" link_id="012" pageSize="10">
+                                <#if advertList?? && (advertList?size > 0)>
+                                    <#list advertList as advert>
+                                        <a target="_blank" href="${advert.linkUrl!''}">${advert.name!''}</a>
+                                    </#list>
+                                </#if>
+                            </@advertListByType>
                         </div>
                     </div>
                     <div class="item">
                         <div class="title">
-                            一级标题
+                            ${site.name!''}
                         </div>
                         <div class="links">
-                            <a target="_blank" href="">链接名称</a>
-                            <a target="_blank" href="">链接名链接名称称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
-                            <a target="_blank" href="">链接名称链接名称</a>
+                            <@advertListByType code="advertList" siteId="${siteId!''}" link_id="013" pageSize="10">
+                                <#if advertList?? && (advertList?size > 0)>
+                                    <#list advertList as advert>
+                                        <a target="_blank" href="${advert.linkUrl!''}">${advert.name!''}</a>
+                                    </#list>
+                                </#if>
+                            </@advertListByType>
                         </div>
                     </div>
                 </div>
@@ -995,8 +967,8 @@
             spaceBetween: 20,
             loop: false,
             navigation: {
-                nextEl: ".ztzlSwiper .swiper-button-next",
-                prevEl: ".ztzlSwiper .swiper-button-prev",
+                nextEl: ".ztzl-section .swiper-button-next",
+                prevEl: ".ztzl-section .swiper-button-prev",
             },
         });
 
@@ -1015,6 +987,32 @@
             on: {
             },
            
+        });
+
+        // Jgdt Nav interaction
+        document.addEventListener('DOMContentLoaded', function() {
+            var jgdtNavItems = document.querySelectorAll('.jgdt-nav li');
+            var jgdtContents = document.querySelectorAll('.jgdt-content');
+            
+            if (jgdtNavItems.length > 0) {
+                jgdtNavItems.forEach(function(item, index) {
+                    item.addEventListener('click', function() {
+                        // Toggle Nav
+                        jgdtNavItems.forEach(function(i) {
+                            i.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                        
+                        // Toggle Content
+                        jgdtContents.forEach(function(content) {
+                            content.style.display = 'none';
+                        });
+                        if (jgdtContents[index]) {
+                            jgdtContents[index].style.display = 'flex';
+                        }
+                    });
+                });
+            }
         });
     </script>
 </body>
