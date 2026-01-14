@@ -1,0 +1,84 @@
+.filing{
+    background-color: rgba(0, 116, 189, 1);
+    height: 44px;
+    .container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        p{
+            color: #fff;
+            font-size: 14px;
+        }
+    }
+}
+footer .content{
+    background-image: url("../images/bg_bottom.png") ;
+    background-repeat: no-repeat ;
+    background-size: 100% ;
+    height: 410px;
+    padding: 34px 0;
+    .container{
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .left{
+        width: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: calc(100% );
+        
+        .log{
+            width: 210px;
+            margin-bottom: 45px;
+        }
+        p{
+            font-size: 16px;
+            line-height: 21px;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    }
+    .right{
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        height: 100%;
+        padding-left:35.1px;
+        width: calc(100% - 500px);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        .item{
+            padding: 7px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            .title{
+                margin-right: 70px;
+                font-size: 14px;
+                font-weight: 600;
+                width: 70px;
+                color: #fff;
+            }
+            .links{
+                width: calc(100% - 70px);
+                word-break: keep-all;
+            }
+            a{
+                color: #fff;
+                font-size: 14px;
+                margin-right: 20px;
+            }
+            &:first-child{
+                padding-top: 0;
+            }
+            &:last-child{
+                border: none !important;
+            }
+        }
+    }
+}
