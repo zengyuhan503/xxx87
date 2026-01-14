@@ -5,21 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>官网首页</title>
-    <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="${basePath!''}/css/header.css">
+    <link rel="stylesheet" href="${basePath!''}/css/style.css">
+    <link rel="stylesheet" href="${basePath!''}/css/reset.css">
+    <link rel="stylesheet" href="${basePath!''}/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="${basePath!''}/css/home.css">
 
 </head>
 
 <body>
     <header>
-        <img class="head_back" src="./images/bg_head.png" alt="">
+        <img class="head_back" src="${basePath!''}/images/bg_head.png" alt="">
         <div class="head_suport container">
             <div class="log">
                 <a target="_blank">
-                    <img src="./images/logo_top.png" alt="">
+                    <img src="${basePath!''}/images/logo_top.png" alt="">
                 </a>
             </div>
             <div class="links">
@@ -34,7 +34,7 @@
         <div class="head_navs">
             <div class="navs container">
                 <ul>
-                     <@sysChannelInfo code="sy001" channelCode="XXX87bd">
+                     <@sysChannelInfo code="sy001" channelCode="xxx87">
                     <#if sy001??>
                         <#assign a1="${sy001.id!''}">
                     </#if>
@@ -42,7 +42,7 @@
                      <@sysNavigationByRootId code="sysNavigation" channelId="${a1!''}">
                      </@sysNavigationByRootId>
                     <li class="active">
-                        <img src="./images/menu_sel.png" alt="">
+                        <img src="${basePath!''}/images/menu_sel.png" alt="">
                         <a href="${itemUrl!''}" >
                             <a target="_blank" href="">${navigation.name!''}</a>
                         </a>
@@ -56,10 +56,10 @@
     <section>
         <div class="items1">
             <div class="container">
-                <img class="hf1" src="./images/hf1.png" alt="">
+                <img class="hf1" src="${basePath!''}/images/hf1.png" alt="">
                 <!-- 头条内容 -->
-                <div class="toutiao" style="background-image: url('./images/tt_bg.png');">
-                    <@articleListBySysChannelId code="ttxwArticleList" channelCode="ttxw" pageNum="1" pageSize="4"     isSpecil="1">
+                <div class="toutiao" style="background-image: url('${basePath!''}/images/tt_bg.png');">
+                    <@articleListBySysChannelId code="ttxwArticleList" channelCode="tt" pageNum="1" pageSize="4"     isSpecil="1">
                     <#if ttxwArticleList??&&(ttxwArticleList?size>0)>
                     <p class="top">
                         <#assign topArticle=ttxwArticleList[0]>
@@ -109,7 +109,7 @@
                     <!-- News List -->
                     <div class="news-list">
                         <div class="news-header">
-                            <img src="./images/title_bdyw.png" alt="部队要闻">
+                            <img src="${basePath!''}/images/title_bdyw.png" alt="部队要闻">
                         </div>
                         <@articleListBySysChannelId code="zddtArticleList" channelCode="bdyw" pageNum="1" pageSize="6">
                         <#if zddtArticleList??&&(zddtArticleList?size>0)>
@@ -146,9 +146,9 @@
             <div class="container">
                 <div class="jgdt-section">
                     <!-- Header -->
-                    <div class="jgdt-header" style="background-image: url('./images/jgdt_bg.png');background-repeat: no-repeat;">
+                    <div class="jgdt-header" style="background-image: url('${basePath!''}/images/jgdt_bg.png');background-repeat: no-repeat;">
                         <div class="jgdt-title">
-                            <img src="./images/maskgroup.png" alt="">
+                            <img src="${basePath!''}/images/maskgroup.png" alt="基层动态">
                             基层动态
                         </div>
                         <@sysChannelInfo code="jcdtInfo" channelCode="jcdt">
@@ -162,7 +162,7 @@
                                     <#list jcdtList as item>
                                         <li <#if item_index == 0>class="active"</#if>>
                                             <span>${item.name!''}</span>
-                                            <img class="indicator" src="./images/jgdt_sel.png" alt="">
+                                            <img class="indicator" src="${basePath!''}/images/jgdt_sel.png" alt="">
                                         </li>
                                     </#list>
                                 </#if>
@@ -171,7 +171,7 @@
                     </div>
 
                     <!-- Content Grid -->
-                    <@sysChannelInfo code="jcdtInfoContent" channelCode="jcdt">
+                    <!-- <@sysChannelInfo code="jcdtInfoContent" channelCode="jcdt">
                         <@sysNavigationByRootId code="jcdtListContent" channelId="${jcdtInfoContent.id!''}">
                             <#if jcdtListContent?? && (jcdtListContent?size > 0)>
                                 <#list jcdtListContent as item>
@@ -213,7 +213,7 @@
                                 </#list>
                             </#if>
                         </@sysNavigationByRootId>
-                    </@sysChannelInfo>
+                    </@sysChannelInfo> -->
                 </div>
             </div>
         </div>
@@ -221,7 +221,7 @@
             <div class="container">
                 <div class="tzgg-section">
                     <div class="tzgg-header">
-                        <img src="./images/title_tzgg.png" alt="通知公告">
+                        <img src="${basePath!''}/images/title_tzgg.png" alt="通知公告">
                         <div class="line"></div>
 
                     </div>
@@ -250,7 +250,7 @@
             <div class="container">
                 <div class="ztzl-section">
                     <div class="tzgg-header">
-                        <img src="./images/title_ztzl.png" alt="专题专栏">
+                        <img src="${basePath!''}/images/title_ztzl.png" alt="专题专栏">
                         <div class="line"></div>
 
                     </div>
@@ -277,7 +277,7 @@
         </div>
         <div class="items6">
             <div class="hf2">
-                <img src="./images/hf_ldsr.png" alt="">
+                <img src="${basePath!''}/images/hf_ldsr.png" alt="">
             </div>
         </div>
         <div class="items7">
@@ -286,7 +286,7 @@
                     <!-- Column 1 -->
                     <div class="col-item">
                         <div class="tzgg-header">
-                            <img src="./images/title_lmmc.png" alt="栏目名称">
+                            <img src="${basePath!''}/images/title_lmmc.png" alt="栏目名称">
                             <div class="line"></div>
 
                         </div>
@@ -322,7 +322,7 @@
                     <!-- Column 2 -->
                     <div class="col-item">
                         <div class="tzgg-header">
-                            <img src="./images/title_lmmc.png" alt="栏目名称">
+                            <img src="${basePath!''}/images/title_lmmc.png" alt="栏目名称">
                             <div class="line"></div>
 
                         </div>
@@ -358,7 +358,7 @@
                     <!-- Column 3 -->
                     <div class="col-item">
                         <div class="tzgg-header">
-                            <img src="./images/title_lmmc.png" alt="栏目名称">
+                            <img src="${basePath!''}/images/title_lmmc.png" alt="栏目名称">
                             <div class="line"></div>
 
                         </div>
@@ -401,12 +401,12 @@
                         <!-- Left: Muke/Wanke (3 items) -->
                         <div class="wzyr-left">
                             <div class="tzgg-header">
-                                <img src="./images/title_mkwk.png" alt="慕课网课">
+                                <img src="${basePath!''}/images/title_mkwk.png" alt="慕课网课">
                                 <div class="line"></div>
 
                             </div>
                             <div class="mkwk-list">
-                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="zw002" pageSize="3">
+                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="102" pageSize="3">
                                     <#if advertList?? && (advertList?size > 0)>
                                         <#list advertList as advert>
                                             <div class="mkwk-item">
@@ -426,12 +426,12 @@
                         <!-- Right: Jiaoxue Pingjia (1 item) -->
                         <div class="wzyr-right">
                             <div class="tzgg-header">
-                                <img src="./images/title_jxpj.png" alt="教学评价">
+                                <img src="${basePath!''}/images/title_jxpj.png" alt="教学评价">
                                 <div class="line"></div>
 
                             </div>
                             <div class="jxpj-content">
-                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="003" pageSize="1">
+                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="103" pageSize="1">
                                     <#if advertList?? && (advertList?size > 0)>
                                         <#list advertList as advert>
                                             <a target="_blank" href="${advert.linkUrl!''}" class="img-link">
@@ -451,7 +451,7 @@
                         <!-- Left: Youxiu Jiaoan -->
                         <div class="wzyr-left-bottom">
                             <div class="tzgg-header">
-                                <img src="./images/title_yxja.png" alt="优秀教案">
+                                <img src=".${basePath!''}/images/title_yxja.png" alt="优秀教案">
                                 <div class="line"></div>
 
                             </div>
@@ -463,7 +463,7 @@
                                                 <#if article_index lt 3>
                                                     <li>
                                                         <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">
-                                                            <img src="./images/icon_ja.png" alt="">
+                                                            <img src="${basePath!''}/images/icon_ja.png" alt="">
                                                             <span>${article.title!''}</span>
                                                         </a>
                                                     </li>
@@ -475,7 +475,7 @@
                                                 <#if article_index gt 2>
                                                     <li>
                                                         <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">
-                                                            <img src="./images/icon_ja.png" alt="">
+                                                            <img src="${basePath!''}/images/icon_ja.png" alt="">
                                                             <span>${article.title!''}</span>
                                                         </a>
                                                     </li>
@@ -489,7 +489,7 @@
                         <!-- Right: Zhengce Fagui -->
                         <div class="wzyr-right-bottom">
                             <div class="tzgg-header">
-                                <img src="./images/title_zcfg.png" alt="政策法规">
+                                <img src="${basePath!''}/images/title_zcfg.png" alt="政策法规">
                                 <div class="line"></div>
 
                             </div>
@@ -531,9 +531,10 @@
                 <div class="yywh-section">
                     <!-- Original header hidden by CSS -->
                     <div class="yywh-header">
-                        <img src="./images/title_yywh.png" alt="育鹰文化">
+                                <img src="${basePath!''}/images/title_yywh.png" alt="育鹰文化">
+                                <div class="line"></div>
                     </div>
-                    <div class="yywh-content" style="background-image: url('./images/bg_red.png');">
+                    <div class="yywh-content" style="background-image: url('${basePath!''}/images/bg_red.png');">
                       
                         <!-- Swiper -->
                         <div class="swiper yywhSwiper">
@@ -567,11 +568,11 @@
                     <div class="col-item">
                         <div class="col-header">
                             <div class="header-left">
-                                <img src="./images/title_szthg.png" alt="数字图书馆">
+                                <img src="${basePath!''}/images/title_szthg.png" alt="数字图书馆">
                             </div>
                         </div>
                         <div class="col-content" style="padding: 0;">
-                            <@advertListByType code="advertList" siteId="${siteId!''}" link_id="004" pageSize="1">
+                            <@advertListByType code="advertList" siteId="${siteId!''}" link_id="104" pageSize="1">
                                 <#if advertList?? && (advertList?size > 0)>
                                     <#list advertList as advert>
                                         <a target="_blank" href="${advert.linkUrl!''}" class="library-card">
@@ -589,12 +590,12 @@
                     <div class="col-item">
                         <div class="col-header">
                             <div class="header-left">
-                                <img src="./images/title_rjck.png" alt="软件仓库">
+                                <img src="${basePath!''}/images/title_rjck.png" alt="软件仓库">
                             </div>
                         </div>
                         <div class="col-content">
                             <div class="software-grid">
-                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="005" pageSize="6">
+                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="105" pageSize="6">
                                     <#if advertList?? && (advertList?size > 0)>
                                         <#list advertList as advert>
                                             <a target="_blank" href="${advert.linkUrl!''}" class="software-item">
@@ -617,17 +618,17 @@
                     <div class="col-item">
                         <div class="col-header">
                             <div class="header-left">
-                                <img src="./images/title_qjyy.png" alt="强军音乐">
+                                <img src="${basePath!''}/images/title_qjyy.png" alt="强军音乐">
                             </div>
                         </div>
                         <div class="col-content">
                             <div class="media-card">
-                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="006" pageSize="1">
+                                <@advertListByType code="advertList" siteId="${siteId!''}" link_id="106" pageSize="1">
                                     <#if advertList?? && (advertList?size > 0)>
                                         <#list advertList as advert>
                                             <div class="media-top">
                                                 <div class="media-img">
-                                                    <img src="./images/test6.png" alt="" class="musicback">
+                                                    <img src="${basePath!''}/images/test6.png" alt="" class="musicback">
                                                     <#if advert.advertPic??>
                                                         <img src="${advert.advertPic.publishingPath!''}" class="cover" alt="${advert.name!''}">
                                                     </#if>
@@ -661,7 +662,7 @@
                 <div class="movie-section">
                     <div class="movie-header">
                         <div class="header-left">
-                            <img src="./images/title_qjys.png" alt="强军影视">
+                                <img src="${basePath!''}/images/title_qjys.png" alt="强军影视">
                         </div>
                     </div>
                     <div class="movie-content">
@@ -696,7 +697,7 @@
         <div class="items12">
             <div class="container">
                 <div class="service-header">
-                    <img src="./images/title_wbfw.png" alt="为兵服务">
+                    <img src="${basePath!''}/images/title_wbfw.png" alt="为兵服务">
                 </div>
                 <div class="service-grid">
                     <!-- Left: News Columns -->
@@ -705,7 +706,7 @@
                         <div class="service-news-col">
                             <div class="service-news-header">
                                 <div class="header-left">
-                                    <img src="./images/title_jyxc.png" alt="建言献策">
+                                    <img src="${basePath!''}/images/title_jyxc.png" alt="建言献策"> 
                                     <div class="dashed-line"></div>
                                 </div>
                             </div>
@@ -738,7 +739,7 @@
                         <div class="service-news-col">
                             <div class="service-news-header">
                                 <div class="header-left">
-                                    <img src="./images/title_wqzx.png" alt="卫勤在线">
+                                    <img src="${basePath!''}/images/title_wqzx.png" alt="卫勤在线">
                                     <div class="dashed-line"></div>
                                 </div>
                             </div>
@@ -770,24 +771,24 @@
 
                     <!-- Right: Mailboxes -->
                     <div class="service-mailbox-container">
-                        <@advertListByType code="advertList" siteId="${siteId!''}" link_id="007" pageSize="1">
+                        <@advertListByType code="advertList" siteId="${siteId!''}" link_id="107" pageSize="1">
                             <#if advertList?? && (advertList?size > 0)>
                                 <#list advertList as advert>
                                     <a target="_blank" href="${advert.linkUrl!''}" class="mailbox-szxx">
                                         <#if advert.advertPic??>
-                                            <img src="./images/img_szxx.png" alt="${advert.name!''}">
+                                            <img src="${basePath!''}/images/img_szxx.png" alt="${advert.name!''}">
                                         </#if>
                                         <p>${advert.name!''}</p>
                                     </a>
                                 </#list>
                             </#if>
                         </@advertListByType>
-                        <@advertListByType code="advertList" siteId="${siteId!''}" link_id="008" pageSize="1">
+                        <@advertListByType code="advertList" siteId="${siteId!''}" link_id="108" pageSize="1">
                             <#if advertList?? && (advertList?size > 0)>
                                 <#list advertList as advert>
                                     <a target="_blank" href="${advert.linkUrl!''}" class="mailbox-szxx">
                                         <#if advert.advertPic??>
-                                            <img src="./images/img_jjxx.png" alt="${advert.name!''}">
+                                            <img src="${basePath!''}/images/img_jjxx.png" alt="${advert.name!''}">
                                         </#if>
                                         <p>${advert.name!''}</p>
                                     </a>
@@ -802,7 +803,7 @@
             <div class="container">
                 <div class="survey-header">
                     <div class="header-left">
-                        <img src="./images/title_wjdc.png" alt="问卷调查">
+                        <img src="${basePath!''}/images/title_wjdc.png" alt="问卷调查">
                     </div>
                 </div>
 
@@ -826,7 +827,7 @@
 
                 <!-- Service Hall Banner -->
                 <div class="service-hall-banner">
-                    <img src="./images/bsdt.png" alt="办事大厅">
+                    <img src="${basePath!''}/images/bsdt.png" alt="办事大厅">
                     
                 </div>
             </div>
@@ -835,7 +836,7 @@
 
     
     <!-- 底部区域 -->
-    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="${basePath!''}/css/footer.css">
     <footer style="height: 300px;">
         <div class="filing">
             <div class="container">
@@ -846,7 +847,7 @@
         <div class="content">
             <div class="container">
                 <div class="left">
-                    <img src="./image/logo_bottom.png" class="log" alt="">
+                    <img src="${basePath!''}/images/logo_bottom.png" class="log" alt="">
                     <p>推荐使用1920*1080及以上分辨率查看 </p>
                     <p>推荐使用浏览器：谷歌浏览器 | 360安全浏览器 | 火狐浏览器等</p>
                 </div>
@@ -911,7 +912,7 @@
             </div>
         </div>
     </footer>
-    <script src="./swiper/swiper-bundle.min.js"></script>
+    <script src="${basePath!''}/js/swiper-bundle.min.js"></script>
     <script>
         // Movie section interaction
         document.addEventListener('DOMContentLoaded', function() {
