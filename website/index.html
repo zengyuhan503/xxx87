@@ -34,7 +34,25 @@
         <div class="head_navs">
             <div class="navs container">
                 <ul>
-                    
+                     <@sysChannelInfo code="sy001" channelCode="XXX87bd">
+                    <#if sy001??>
+                        <#assign a1="${sy001.id!''}">
+                    </#if>
+                    </@sysChannelInfo>
+                    <@sysNavigationByRootId code="sysNavigation" channelId="${a1!''}">
+                        <#if sysNavigation??>
+                            <#list sysNavigation.children as navigation>
+                                <#assign itemUrl="${navigation.attributes.noRootUrl!''}">
+                                <#if !itemUrl?starts_with('http')>
+                                    <#assign itemUrl="${publishUrlPrefix!''}/${navigation.attributes.noRootUrl!''}">
+                                </#if>
+                                 <li  <#if navigation_index==0>class="active"</#if> >
+                                    <img src="${basePath!''}/images/menu_sel.png" alt="">
+                                    <a href="${itemUrl!''}" target="_blank" >${navigation.name!''}</a>
+                                </li>
+                            </#list>
+                        </#if>
+                    </@sysNavigationByRootId>
                 </ul>
             </div>
         </div>
@@ -45,8 +63,27 @@
             <div class="container">
                 <img class="hf1" src="${basePath!''}/images/hf1.png" alt="">
                 <!-- 头条内容 -->
-                <div class="toutiao" style="background-image: url('${basePath!''}/images/tt_bg.png');">
-                    
+               <div class="toutiao" style="background-image: url('${basePath!''}/images/tt_bg.png');">
+                 <@articleListBySysChannelId code="ttxwArticleList" channelCode="tt" pageNum="1" pageSize="4" isSpecil="1">
+                 <#if ttxwArticleList??&&(ttxwArticleList?size>0)>
+                  <p class="top">
+                     <#assign topArticle=ttxwArticleList[0]>
+                       <a href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}"
+                                        target="_blank">${topArticle.title!''}</a>
+                    </p>
+                    <div class="list">
+                        <#list ttxwArticleList as ttxwArticle>
+                            <#if ttxwArticle_index gt 0>
+                                <p>
+                                    <a href="${publishUrlPrefix!''}/${ttxwArticle.publishingPath!''}"
+                                        target="_blank">${ttxwArticle.title!''}</a>
+                                    <span> | </span>
+                                </p>
+                            </#if>
+                        </#list>
+                    </div>
+                </#if>
+                </@articleListBySysChannelId>
                 </div>
             </div>
         </div>
@@ -339,7 +376,6 @@
                                                     </li>
                                                 </#if>
                                             </#list>
-                                        </ul>
                                         <ul>
                                             <#list yxjaArticles as article>
                                                 <#if article_index gt 2>
