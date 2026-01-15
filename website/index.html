@@ -39,14 +39,14 @@
                         <#assign a1="${sy001.id!''}">
                     </#if>
                     </@sysChannelInfo>
-                     <@sysNavigationByRootId code="sysNavigation" channelId="${a1!''}">
-                     </@sysNavigationByRootId>
-                    <li class="active">
-                        <img src="${basePath!''}/images/menu_sel.png" alt="">
-                        <a href="${itemUrl!''}" >
-                            <a target="_blank" href="">${navigation.name!''}</a>
-                        </a>
-                    </li>
+                     <!-- <@sysNavigationByRootId code="sysNavigation" channelId="${a1!''}">
+                        <li class="active">
+                            <img src="${basePath!''}/images/menu_sel.png" alt="">
+                            <a href="${itemUrl!''}" >
+                                <a target="_blank" href="">${navigation.name!''}</a>
+                            </a>
+                        </li>
+                    </@sysNavigationByRootId> -->
                     
                 </ul>
             </div>
@@ -59,23 +59,25 @@
                 <img class="hf1" src="${basePath!''}/images/hf1.png" alt="">
                 <!-- 头条内容 -->
                 <div class="toutiao" style="background-image: url('${basePath!''}/images/tt_bg.png');">
-                    <@articleListBySysChannelId code="ttxwArticleList" channelCode="tt" pageNum="1" pageSize="4"     isSpecil="1">
+                    <@articleListBySysChannelId code="ttxwArticleList" channelCode="tt" pageNum="1" pageSize="4"  isSpecil="1">
                     <#if ttxwArticleList??&&(ttxwArticleList?size>0)>
-                    <p class="top">
-                        <#assign topArticle=ttxwArticleList[0]>
-                         <a href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}" target="_blank">
-                            ${topArticle.title!''}
-                        </a>
-                    </p>
-                    <div class="list">
-                        <#list ttxwArticleList as ttxwArticle>
-                            <#if ttxwArticle_index gt 0>
-                             <p>
-                             <a href="${publishUrlPrefix!''}/${ttxwArticle.publishingPath!''}" target="_blank">${ttxwArticle.title!''}</a>
-                             </p>
-                            </#if>
-                        </#list>
-                    </div>
+                        <p class="top">
+                            <#assign topArticle=ttxwArticleList[0]>
+                            <a href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}" target="_blank">
+                                ${topArticle.title!''}
+                            </a>
+                        </p>
+                        <div class="list">
+                            <#list ttxwArticleList as ttxwArticle>
+                                <#if ttxwArticle_index gt 0>
+                                <p>
+                                    <a href="${publishUrlPrefix!''}/${ttxwArticle.publishingPath!''}" target="_blank">
+                                        ${ttxwArticle.title!''}
+                                    </a>
+                                </p>
+                                </#if>
+                            </#list>
+                        </div>
                     </#if>
                     </@articleListBySysChannelId>
                 </div>
@@ -89,16 +91,16 @@
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
                             <@rotationChartChannelId code="rotationChartList" channelCode="bdyw" pageSize="5">
-                             <#if rotationChartList??&&(rotationChartList?size>0)>
-                            <#list rotationChartList as rotationChart>
-                            <div class="swiper-slide">
-                                <a target="_blank" href="${publishUrlPrefix!''}/${rotationChart.publishingPath!''}">
-                                     <img src="${rotationChart.picPath!''}" alt="${rotationChart.title!''}">
-                                    <div class="slide-title">${rotationChart.title!''}</div>
-                                </a>
-                            </div>
-                            </#list>
-                            </#if>
+                                <#if rotationChartList??&&(rotationChartList?size>0)>
+                                    <#list rotationChartList as rotationChart>
+                                        <div class="swiper-slide">
+                                            <a target="_blank" href="${publishUrlPrefix!''}/${rotationChart.publishingPath!''}">
+                                                <img src="${rotationChart.picPath!''}" alt="${rotationChart.title!''}">
+                                                <div class="slide-title">${rotationChart.title!''}</div>
+                                            </a>
+                                        </div>
+                                    </#list>
+                                </#if>
                             </@rotationChartChannelId>
                         </div>
                         <div class="swiper-button-next"></div>
@@ -112,31 +114,29 @@
                             <img src="${basePath!''}/images/title_bdyw.png" alt="部队要闻">
                         </div>
                         <@articleListBySysChannelId code="zddtArticleList" channelCode="bdyw" pageNum="1" pageSize="6">
-                        <#if zddtArticleList??&&(zddtArticleList?size>0)>
-
-                        
-                        <div class="news-item-highlight">
-                            <#assign topArticle=zddtArticleList[0]>
-                            <a target="_blank" href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}" class="img-link">
-                                <img src="${topArticle.picPath!''}" alt="${topArticle.title!''}">
-                            </a>
-                            <div class="info">
-                                <h3><a target="_blank" href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}">${topArticle.title!''}</a></h3>
-                                <p><a target="_blank" href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}">${topArticle.content!''}</a></p>
-                                <span>${topArticle.releaseTime?string("dd")!''}-${topArticle.releaseTime?string("MM")!''}</span>
+                            <#if zddtArticleList??&&(zddtArticleList?size>0)>
+                            <div class="news-item-highlight">
+                                <#assign topArticle=zddtArticleList[0]>
+                                <a target="_blank" href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}" class="img-link">
+                                    <img src="${topArticle.picPath!''}" alt="${topArticle.title!''}">
+                                </a>
+                                <div class="info">
+                                    <h3><a target="_blank" href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}">${topArticle.title!''}</a></h3>
+                                    <p><a target="_blank" href="${publishUrlPrefix!''}/${topArticle.publishingPath!''}">${topArticle.content!''}</a></p>
+                                    <span>${topArticle.releaseTime?string("dd")!''}-${topArticle.releaseTime?string("MM")!''}</span>
+                                </div>
                             </div>
-                        </div>
-                        <ul class="news-text-list">
-                            <#list zddtArticleList as bdywArticle>
-                              <#if bdywArticle_index gt 0>
-                             <li>
-                                <a target="_blank" href="${publishUrlPrefix!''}/${bdywArticle.publishingPath!''}">${bdywArticle.title!''}</a>
-                                <span>${bdywArticle.releaseTime?string("dd")!''}-${bdywArticle.releaseTime?string("MM")!''}</span>
-                             </li>
+                            <ul class="news-text-list">
+                                <#list zddtArticleList as bdywArticle>
+                                    <#if bdywArticle_index gt 0>
+                                    <li>
+                                        <a target="_blank" href="${publishUrlPrefix!''}/${bdywArticle.publishingPath!''}">${bdywArticle.title!''}</a>
+                                        <span>${bdywArticle.releaseTime?string("dd")!''}-${bdywArticle.releaseTime?string("MM")!''}</span>
+                                    </li>
+                                    </#if>
+                                </#list>
+                            </ul>
                             </#if>
-                        </#list>
-                        </ul>
-                        </#if>
                         </@articleListBySysChannelId>
                     </div>
                 </div>
@@ -257,17 +257,17 @@
                     <!-- Swiper -->
                     <div class="swiper ztzlSwiper">
                         <div class="swiper-wrapper">
-                            <@articleListBySysChannelId code="ztzlArticles" channelCode="ztzl" pageSize="10">
+                            <@rotationChartChannelId code="ztzlArticles" channelCode="ztzl" pageSize="10">
                                 <#if ztzlArticles?? && (ztzlArticles?size > 0)>
                                     <#list ztzlArticles as article>
                                         <div class="swiper-slide">
                                             <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">
-                                                <img src="${publishUrlPrefix!''}/${article.titleImg!''}" style="width: 100%;" alt="${article.title!''}">
+                                                <img src="${article.picPath!''}" style="width: 100%;" alt="${article.title!''}">
                                             </a>
                                         </div>
                                     </#list>
                                 </#if>
-                            </@articleListBySysChannelId>
+                            </@rotationChartChannelId>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
@@ -291,7 +291,7 @@
 
                         </div>
                         <div class="news-list-box">
-                            <@articleListBySysChannelId code="ldsrArticles" channelCode="ldsr" pageSize="5">
+                            <@articleListBySysChannelId code="ldsrArticles" channelCode="ldsr_1" pageSize="5">
                                 <#if ldsrArticles?? && (ldsrArticles?size > 0)>
                                     <!-- First item highlighted -->
                                     <#assign firstArticle = ldsrArticles[0]>
@@ -327,7 +327,7 @@
 
                         </div>
                         <div class="news-list-box">
-                            <@articleListBySysChannelId code="ldsrArticles" channelCode="ldsr" pageSize="5">
+                            <@articleListBySysChannelId code="ldsrArticles" channelCode="ldsr_2" pageSize="5">
                                 <#if ldsrArticles?? && (ldsrArticles?size > 0)>
                                     <!-- First item highlighted -->
                                     <#assign firstArticle = ldsrArticles[0]>
@@ -363,7 +363,7 @@
 
                         </div>
                         <div class="news-list-box">
-                            <@articleListBySysChannelId code="ldsrArticles" channelCode="ldsr" pageSize="5">
+                            <@articleListBySysChannelId code="ldsrArticles" channelCode="ldsr_3" pageSize="5">
                                 <#if ldsrArticles?? && (ldsrArticles?size > 0)>
                                     <!-- First item highlighted -->
                                     <#assign firstArticle = ldsrArticles[0]>
@@ -411,11 +411,9 @@
                                         <#list advertList as advert>
                                             <div class="mkwk-item">
                                                 <a target="_blank" href="${advert.linkUrl!''}" class="img-link">
-                                                    <#if advert.advertPic??>
-                                                        <img src="${advert.advertPic.publishingPath!''}" alt="${advert.name!''}">
-                                                    </#if>
+                                                        <img src="${advert.advertPic.publishingPath!''}" alt="${advert.title!''}">
                                                     <div class="video-icon"></div>
-                                                    <p class="title">${advert.name!''}</p>
+                                                    <p class="title">${advert.title!''}</p>
                                                 </a>
                                             </div>
                                         </#list>
@@ -435,9 +433,7 @@
                                     <#if advertList?? && (advertList?size > 0)>
                                         <#list advertList as advert>
                                             <a target="_blank" href="${advert.linkUrl!''}" class="img-link">
-                                                <#if advert.advertPic??>
-                                                    <img src="${advert.advertPic.publishingPath!''}" alt="${advert.name!''}">
-                                                </#if>
+                                                <img src="${advert.advertPic.publishingPath!''}" alt="${advert.name!''}">
                                             </a>
                                         </#list>
                                     </#if>
@@ -504,7 +500,7 @@
                                             </a>
                                             <div class="info">
                                                 <h3><a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}">${firstArticle.title!''}</a></h3>
-                                                <p><a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}">${firstArticle.description!firstArticle.title!''}</a></p>
+                                                <p><a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}">${firstArticle.title!''}</a></p>
                                             </div>
                                         </div>
                                         <!-- Remaining items list -->
@@ -539,20 +535,20 @@
                         <!-- Swiper -->
                         <div class="swiper yywhSwiper">
                             <div class="swiper-wrapper">
-                                <@articleListBySysChannelId code="yywhArticles" channelCode="yywh" pageSize="10">
-                                    <#if yywhArticles?? && (yywhArticles?size > 0)>
-                                        <#list yywhArticles as article>
+                                <@rotationChartChannelId code="rotationChartList" channelCode="yywh" pageSize="10">
+                                   <#if rotationChartList??&&(rotationChartList?size>0)>
+                                        <#list rotationChartList as article>
                                             <div class="swiper-slide">
                                                 <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}" class="card-link">
                                                     <div class="card-img">
-                                                        <img src="${publishUrlPrefix!''}/${article.titleImg!''}" alt="${article.title!''}">
+                                                        <img src="${article.picPath!''}" alt="${article.title!''}">
                                                     </div>
                                                     <div class="card-title">${article.title!''}</div>
                                                 </a>
                                             </div>
                                         </#list>
                                     </#if>
-                                </@articleListBySysChannelId>
+                                </@rotationChartChannelId>
                             </div>
                         </div>
                         <div class="yywhSwiper-swiper-button-next"></div>
@@ -576,9 +572,7 @@
                                 <#if advertList?? && (advertList?size > 0)>
                                     <#list advertList as advert>
                                         <a target="_blank" href="${advert.linkUrl!''}" class="library-card">
-                                            <#if advert.advertPic??>
-                                                <img src="${advert.advertPic.publishingPath!''}" alt="${advert.name!''}">
-                                            </#if>
+                                            <img src="${advert.advertPic.publishingPath!''}" alt="${advert.name!''}">
                                         </a>
                                     </#list>
                                 </#if>
@@ -599,9 +593,7 @@
                                     <#if advertList?? && (advertList?size > 0)>
                                         <#list advertList as advert>
                                             <a target="_blank" href="${advert.linkUrl!''}" class="software-item">
-                                                <#if advert.advertPic??>
-                                                    <img src="${advert.advertPic.publishingPath!''}" alt="${advert.name!''}">
-                                                </#if>
+                                                <img src="${advert.advertPic.publishingPath!''}" >
                                                 <div class="info">
                                                     <h4>${advert.name!''}</h4>
                                                     <p>${advert.description!advert.name!''}</p>
@@ -643,13 +635,13 @@
                                     </#if>
                                 </@advertListByType>
                                 <ul class="media-list">
-                                    <@articleListBySysChannelId code="qjyyArticles" channelCode="qjyy" pageSize="4">
-                                        <#if qjyyArticles?? && (qjyyArticles?size > 0)>
-                                            <#list qjyyArticles as article>
-                                                <li><span class="num">${article_index + 1}</span> <a target="_blank" href="${publishUrlPrefix!''}/${article.publishingPath!''}">${article.title!''}</a></li>
-                                            </#list>
-                                        </#if>
-                                    </@articleListBySysChannelId>
+                                <@articleListBySysChannelId code="qjyyArticles" channelCode="qjyy" pageSize="4">
+                                    <#if qjyyArticles?? && (qjyyArticles?size > 0)>
+                                        <#list qjyyArticles as article>
+                                            <li><span class="num">${article_index + 1}</span> <a target="_blank" href="${article.publishingPath!''}">${article.title!''}</a></li>
+                                        </#list>
+                                    </#if>
+                                </@articleListBySysChannelId>
                                 </ul>
                             </div>
                         </div>
@@ -671,8 +663,8 @@
                                 <#if qjysArticles?? && (qjysArticles?size > 0)>
                                     <!-- Main Display (Default to first item) -->
                                     <#assign firstArticle = qjysArticles[0]>
-                                    <a target="_blank" href="${publishUrlPrefix!''}/${firstArticle.publishingPath!''}" class="movie-main-link">
-                                        <img src="${publishUrlPrefix!''}/${firstArticle.titleImg!''}" alt="${firstArticle.title!''}">
+                                    <a target="_blank" href="${firstArticle.publishingPath!''}" class="movie-main-link">
+                                        <img src="${firstArticle.publishingPath!''}" alt="${firstArticle.title!''}">
                                     </a>
                                     <div class="movie-overlay">正在热播</div>
                                     
@@ -680,8 +672,8 @@
                                     <div class="movie-list-overlay">
                                         <#list qjysArticles as article>
                                             <div class="movie-list-item <#if article_index == 0>active</#if>" 
-                                                 data-img="${publishUrlPrefix!''}/${article.titleImg!''}" 
-                                                 data-link="${publishUrlPrefix!''}/${article.publishingPath!''}" 
+                                                 data-img="${article.publishingPath!''}" 
+                                                 data-link="${article.publishingPath!''}" 
                                                  data-title="${article.title!''}">
                                                 《${article.title!''}》
                                             </div>
@@ -749,7 +741,7 @@
                                         <!-- Featured Article (First Item) -->
                                         <#assign firstArticle = wqzxArticles[0]>
                                         <div class="service-featured-news">
-                                            <img src="${publishUrlPrefix!''}/${firstArticle.titleImg!''}" alt="${firstArticle.title!''}">
+                                            <img src="${firstArticle.publishingPath!''}" alt="${firstArticle.title!''}">
                                             <div class="news-info">
                                                 <h4>${firstArticle.title!''}</h4>
                                                 <p>${firstArticle.description!firstArticle.title!''}</p>
